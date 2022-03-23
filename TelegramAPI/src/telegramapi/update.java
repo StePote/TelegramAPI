@@ -3,20 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bottelegram;
-import telegramapi.*;
+package telegramapi;
 
 /**
  *
  * @author potenza_stefano
  */
-public class BotTelegram {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
-    
+public class update {
+    Messaggio message;
+    String update_id;
 }

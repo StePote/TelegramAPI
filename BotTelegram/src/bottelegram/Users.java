@@ -4,19 +4,11 @@
  * and open the template in the editor.
  */
 package bottelegram;
-import telegramapi.*;
 
 /**
  *
  * @author potenza_stefano
  */
-public class BotTelegram {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
+public class Users {
     
 }
