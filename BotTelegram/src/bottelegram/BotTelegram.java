@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package bottelegram;
+import java.io.IOException;
 import telegramapi.*;
 
 /**
@@ -15,8 +16,14 @@ public class BotTelegram {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws IOException {
+        condivisa c = condivisa.getInstance();
+        c.users = c.gf.loadLocations(condivisa.PATH);
+        gestioneMessaggio gm = new gestioneMessaggio();
+        gm.start();
+        update up = new update();
+        up.start();
+
     }
     
 }

@@ -23,20 +23,6 @@ import org.json.*;
  * @author potenza_stefano
  */
 public class test {
-//    public String hello(String str){
-//        JSONObject o = new JSONObject(str);
-//        for (Iterator i = o.keys(); i.hasNext(); ) 
-//        {
-//            String key=(String)i.next();
-//            System.out.println(key);
-//            if(key=="message")
-//            {
-//                o.getJSONObject(key);
-//            }
-//            
-//        }
-//        return "";
-//    }
     public static String leggi(Reader rd) throws IOException{
         String s="";
         int v;
@@ -57,10 +43,10 @@ public class test {
         }
     }
     
-    public List<Messaggio> getUpdate() throws IOException {
+    public List<Messaggio> getUpdate(int last_update_id) throws IOException {
         List<Messaggio> results = null;
         
-        String jsonString = JsonFromUrl("https://api.telegram.org/bot5167409253:AAF2PCTQGcCjnry5DCZg7Y2cpXJizo69wr8/getUpdates");
+        String jsonString = JsonFromUrl("https://api.telegram.org/bot5296856967:AAH16g7Ivs-xM57AAFhXu9_uPolgOP7_pbU/getUpdates");
         JSONObject obj = new JSONObject(jsonString);
         boolean ok = obj.getBoolean("ok");
         if (ok) {
@@ -90,7 +76,7 @@ public class test {
     }
     public boolean sendMessage(int chat_id, String text) throws IOException {
         String encode_txt = URLEncoder.encode(text, "UTF-8");
-        String String = JsonFromUrl("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/sendMessage?chat_id=" + chat_id + "&text=" + encode_txt);
+        String String = JsonFromUrl("https://api.telegram.org/bot5296856967:AAH16g7Ivs-xM57AAFhXu9_uPolgOP7_pbU/sendMessage?chat_id=" + chat_id + "&text=" + encode_txt);
         if (!String.equals("")) {
             JSONObject obj = new JSONObject(String);
             boolean ok = obj.getBoolean("ok");
@@ -103,7 +89,7 @@ public class test {
 
     public boolean sendLocation(int chat_id, double[] coord) throws IOException {
       
-        String jsonString = JsonFromUrl("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/sendLocation?chat_id=" + chat_id + "&latitude=" + coord[0] +"&longitude="+coord[1]);
+        String jsonString = JsonFromUrl("https://api.telegram.org/bot5296856967:AAH16g7Ivs-xM57AAFhXu9_uPolgOP7_pbU/sendLocation?chat_id=" + chat_id + "&latitude=" + coord[0] +"&longitude="+coord[1]);
         if (!jsonString.equals("")) {
             JSONObject obj = new JSONObject(jsonString);
             boolean ok = obj.getBoolean("ok");
