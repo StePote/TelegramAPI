@@ -1,0 +1,96 @@
+USO GSON
+
+- Leggere:
+
+class Oggetto {
+	public String city, name;
+	public float lat, lon;
+	public boolean variabile;
+}
+int id = 1;
+String citta = "Baruccana";
+Reader reader = new BufferedReader(new InputStreamReader("https://nominatim.openstreetmap.org/search?q="+citta+"&format=json&addressdetails=1"));// inserire l'url del file json
+Gson g = new Gson();
+Oggetto oggettoProva = g.fromJson(reader, Oggetto.class);
+
+- Scrivere su un file un codice json:
+
+String risultato = g.toJson(oggettoProva);
+
+/*
+{
+"status": "success",
+"country": "Italy",
+"lat": 45.39,
+"lon": 9.2923,
+"query": "79.21.145.174"
+}
+*/
+
+FileWriter writer = new FileWriter("file.txt");
+writer.write(risultato);
+writer.close();
+
+// se il codice json fosse un array 
+Oggetto[] oggetti;
+Gson g = new Gson();
+oggetti = g.fromJson(reader, Oggetto[].class);
+
+************************************************
+
+XML
+
+String citta = "Baruccana";
+
+// per prendere la root
+DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+DocumentBuilder builder = factory.newDocumentBuilder();
+var document = builder.parse("https://nominatim.openstreetmap.org/search?q="+citta+"&format=xml&addressdetails=1");
+//ricevi la root
+document.getDocumentElement();
+
+//per prendere il figlio della root
+Node nodo = element.getChildNodes().item(1); // in questo caso prendiamo il primo figlio
+
+Node nodo = element.getChildNodes().item(1).getChildNodes().item(0); // in questo caso prendiamo il figlio del figlio della root
+
+// per prendere un attributo
+int valore = Integer.parseInt(nodo.getAttributes().getNamedItem("timestamp").getNodeValue()); //getNodeValue() ritorna sempre una stringa, "timestamp" è un esempio di attributo
+String valore = nodo.getNodeValue();
+
+
+//funzione per aggiornare una riga di un file
+private void ScriviSuFile(Message messaggio, Location location) throws FileNotFoundException {
+        File file = new File("database.csv");
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Impossibile creare file database.csv. " + ex.getMessage());
+        }
+        Scanner scanner = new Scanner(file);
+        StringBuffer stringBuffer = new StringBuffer();
+        String rigaDaModificare = null;
+        while (scanner.hasNextLine()) {
+            String riga = scanner.nextLine();
+			//la condizione dell'if deve essere quella per cui vuoi cambiare la riga
+            if (riga.contains(String.valueOf(messaggio.chat.id))) {
+                rigaDaModificare = riga;
+            }
+            stringBuffer.append(riga + System.lineSeparator()); //System.lineSeparator() = '\n'
+        }
+        String contents = stringBuffer.toString();
+        scanner.close();
+        if (rigaDaModificare != null) {
+            contents = contents.replaceAll(rigaDaModificare, messaggio.chat.id + ";" + messaggio.from.username + ";" + location.lat + ";" + location.lon);
+        } else {
+            contents += messaggio.chat.id + ";" + messaggio.from.username + ";" + location.lat + ";" + location.lon + System.lineSeparator();
+        }
+        try {
+            contents = contents.trim();
+            FileWriter writer = new FileWriter(file);
+            writer.write(contents);
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
